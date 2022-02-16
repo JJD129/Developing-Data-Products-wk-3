@@ -1,0 +1,62 @@
+---
+title: "Week 3 Assignment"
+author: "JJD"
+date: "2/14/2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+## International Food Security
+
+The dataset from the annual International Food Security Assessment report includes regional and sub-regional level data for the demand for grains (food and non-food), grain production, and the implied additional grain supply requirement (IASR) for the current year and 10-years out. 
+
+The IASR quantifies the total grain demand in each region and sub-region that is not projected to be met through domestic production.
+
+```{r data, include=FALSE, echo = TRUE}
+library(plotly)
+library(xlsx)
+setwd("/Users/jenniferdimaano/Desktop/CourseraR/Developing Data Products/")
+grainData<-read.xlsx("GrainDemandProduction.xlsx", sheetIndex = 1, header = TRUE)
+```
+
+
+## Grain Data
+```{r data read, include=TRUE, comment=NA}
+head(grainData)
+```
+
+## Asia Total
+```{r graph load, include=TRUE, echo=FALSE}
+asiaDataTotal <- grainData[which(grainData$Sub.region=="Asia, Total"), ]
+plot_ly(asiaDataTotal, x = asiaDataTotal$Element, y = asiaDataTotal$Millions.of.metric.tons, type='bar', color = as.factor(asiaDataTotal$Year))
+```
+Total grain demand in Asia will increase ~22% in 2031.
+
+## Sub Regions of Asia
+```{r graph, include=FALSE, echo=FALSE}
+asiaDataTotal1 <- grainData[which(grainData$Sub.region=="Commonwealth of Independent States"), ]
+fig1<-plot_ly(asiaDataTotal1, x = asiaDataTotal1$Element, y = asiaDataTotal1$Millions.of.metric.tons, type='bar', color = as.factor(asiaDataTotal1$Year)) %>% layout(xaxis = list(title = 'Commonwealth of Independent States'))
+
+asiaDataTotal2 <- grainData[which(grainData$Sub.region=="Central and Southern Asia"), ]
+fig2<-plot_ly(asiaDataTotal2, x = asiaDataTotal2$Element, y = asiaDataTotal2$Millions.of.metric.tons, type='bar', color = as.factor(asiaDataTotal2$Year)) %>% layout(xaxis = list(title = 'Central and Southern Asia'))
+```
+```{r figure1, include=TRUE, echo=FALSE}
+fig3 <- subplot(fig1, fig2, titleX = TRUE) %>% 
+   layout(title = 'Asia')
+fig3
+```
+## Sub Regions of Asia Continued
+```{r, include=FALSE, echo=FALSE}
+asiaDataTotal3 <- grainData[which(grainData$Sub.region=="Other Asia"), ]
+fig4<-plot_ly(asiaDataTotal3, x = asiaDataTotal3$Element, y = asiaDataTotal3$Millions.of.metric.tons, type='bar', color = as.factor(asiaDataTotal3$Year)) %>% layout(xaxis = list(title = 'Other Asia'))
+
+asiaDataTotal4 <- grainData[which(grainData$Sub.region=="Southeast Asia"), ]
+fig5<-plot_ly(asiaDataTotal4, x = asiaDataTotal4$Element, y = asiaDataTotal4$Millions.of.metric.tons, type='bar', color = as.factor(asiaDataTotal$Year)) %>% layout(xaxis = list(title = 'Southeast Asia'))
+```
+```{r figure2, include=TRUE, echo=FALSE}
+fig6 <- subplot(fig4, fig5, titleX = TRUE)
+fig6
+```
