@@ -18,7 +18,7 @@ The IASR quantifies the total grain demand in each region and sub-region that is
 ```{r data, include=FALSE, echo = TRUE}
 library(plotly)
 library(xlsx)
-setwd("/Users/jenniferdimaano/Desktop/CourseraR/Developing Data Products/")
+setwd("/Users/jenniferdimaano/Desktop/CourseraR/Developing Data Products/Developing-Data-Products-wk-3/")
 grainData<-read.xlsx("GrainDemandProduction.xlsx", sheetIndex = 1, header = TRUE)
 ```
 
